@@ -1,0 +1,10 @@
+<div class="card h-100 shadow-sm">
+
+    <img [src]="hero.image.url" class="card-img-top" alt="{{ hero.name }}">
+
+    <div class="card-body text-center">
+      <h5 class="card-title">{{ hero.name }}</h5>
+      <app-button-detail (heroSelected)="onSelectHero()"></app-button-detail>
+    </div>
+
+</div>

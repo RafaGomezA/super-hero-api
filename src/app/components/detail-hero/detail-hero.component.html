@@ -1,0 +1,67 @@
+<div class="container my-5">
+    <div class="card shadow-lg">
+      <div class="row g-0">
+        <!-- Imagen del héroe -->
+        <div class="col-md-4">
+          <img [src]="hero?.image?.url || 'https://via.placeholder.com/300x400?text=No+Image'" 
+               class="img-fluid rounded-start" 
+               alt="{{ hero?.name || 'Héroe desconocido' }}">
+        </div>
+        <!-- Información del héroe -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <!-- Título con el nombre del héroe -->
+            <h2 class="card-title text-center mb-4">{{ hero?.name || 'Héroe desconocido' }}</h2>
+  
+            <!-- Biografía -->
+            <h5 class="mb-3">Biografía</h5>
+            <ul class="list-unstyled">
+              <li><strong>Nombre Completo:</strong> {{ hero?.biography?.['full-name'] || 'N/A' }}</li>
+              <li><strong>Alter egos:</strong> {{ hero?.biography?.['alter-egos'] || 'N/A' }}</li>
+              <li><strong>Lugar de nacimiento:</strong> {{ hero?.biography?.['place-of-birth'] || 'N/A' }}</li>
+              <li><strong>Primera aparición:</strong> {{ hero?.biography?.['first-appearance'] || 'N/A' }}</li>
+              <li><strong>Editor:</strong> {{ hero?.biography?.publisher || 'N/A' }}</li>
+              <li><strong>Alineación:</strong> {{ hero?.biography?.alignment || 'N/A' }}</li>
+            </ul>
+  
+            <!-- Apariencia -->
+            <h5 class="mt-4 mb-3">Apariencia</h5>
+            <ul class="list-unstyled">
+              <li><strong>Género:</strong> {{ hero?.appearance?.gender || 'N/A' }}</li>
+              <li><strong>Raza:</strong> {{ hero?.appearance?.race || 'N/A' }}</li>
+              <li><strong>Altura:</strong> {{ hero?.appearance?.height?.join(', ') || 'N/A' }}</li>
+              <li><strong>Peso:</strong> {{ hero?.appearance?.weight?.join(', ') || 'N/A' }}</li>
+              <li><strong>Color de ojos:</strong> {{ hero?.appearance?.['eye-color'] || 'N/A' }}</li>
+              <li><strong>Color de cabello:</strong> {{ hero?.appearance?.['hair-color'] || 'N/A' }}</li>
+            </ul>
+  
+            <!-- Estadísticas de poder -->
+            <h5 class="mt-4 mb-3">Estadísticas de Poder</h5>
+            <ul class="list-unstyled">
+              <li><strong>Inteligencia:</strong> {{ hero?.powerstats?.intelligence || 'N/A' }}</li>
+              <li><strong>Fuerza:</strong> {{ hero?.powerstats?.strength || 'N/A' }}</li>
+              <li><strong>Velocidad:</strong> {{ hero?.powerstats?.speed || 'N/A' }}</li>
+              <li><strong>Durabilidad:</strong> {{ hero?.powerstats?.durability || 'N/A' }}</li>
+              <li><strong>Poder:</strong> {{ hero?.powerstats?.power || 'N/A' }}</li>
+              <li><strong>Combate:</strong> {{ hero?.powerstats?.combat || 'N/A' }}</li>
+            </ul>
+  
+            <!-- Conexiones -->
+            <h5 class="mt-4 mb-3">Conexiones</h5>
+            <ul class="list-unstyled">
+              <li><strong>Afiliaciones:</strong> {{ hero?.connections?.['group-affiliation'] || 'N/A' }}</li>
+              <li><strong>Parientes:</strong> {{ hero?.connections?.relatives || 'N/A' }}</li>
+            </ul>
+  
+            <!-- Ocupación y Base -->
+            <h5 class="mt-4 mb-3">Trabajo</h5>
+            <ul class="list-unstyled">
+              <li><strong>Ocupación:</strong> {{ hero?.work?.occupation || 'N/A' }}</li>
+              <li><strong>Base:</strong> {{ hero?.work?.base || 'N/A' }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

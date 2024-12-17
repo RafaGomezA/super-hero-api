@@ -1,0 +1,16 @@
+<nav class="navbar bg-secondary">
+    <div class="container-fluid d-flex justify-content-between">
+
+      <!-- Contenedor de botones -->
+      <div class="d-flex">
+        <app-button-header *ngFor="let btn of buttons"
+          [label]="btn.label"
+          [route]="btn.route">
+        </app-button-header>
+      </div>
+
+      <!-- Buscador -->
+       <app-buscador></app-buscador>
+
+    </div>
+  </nav>
