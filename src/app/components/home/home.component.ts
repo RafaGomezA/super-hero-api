@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.cargarHeroes();
 
-    // Captura el parámetro 'myUrl' y realiza la búsqueda (desde buscador component)
+    // Captura el parámetro 'search' y realiza la búsqueda (desde buscador component)
     this.route.queryParams.subscribe(params => {
-      const nombre = params['search'];
+      const nombre = params['search']; // Obtiene el valor del parámetro 'search'
       if (nombre) {
         this.buscarHeroes(nombre);
       }
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     const peticiones = []; //array vacío donde se guardarán todas las peticiones HTTP
 
     // Crear un array con las peticiones
-    for (let index = 1; index <= 20; index++) {
+    for (let index = 1; index <= 50; index++) {
       peticiones.push(this.restService.getHero(index.toString())); //guardo los observables (aun no me he suscrito). Los obserbables son Lazy
     }//En peticiones se guardan los observables retornados por getHero, pero las peticiones HTTP no se han ejecutado todavía.
    
@@ -50,16 +50,17 @@ export class HomeComponent implements OnInit {
   }
 
 
-  onHeroSelected(hero: ISuperhero) : void {
+  //evento del boton de detalle que sube de cardComponent para que redirija a una url
+  onHeroSelected(hero: ISuperhero) : void {  //<app-card [hero] = hero (heroSelected)="onHeroSelected($event)"></app-card>
     this.router.navigate(['/detail', hero.id]); // lleva a http://localhost:4200/detail/71
   }
 
 
-  //busqueda
+  //busqueda del heroe con el parametro que viene en params de buscadorComponent y que guardamos en "nombre" en el OnInit
   private buscarHeroes(nombre: string): void {
     this.restService.searchByName(nombre).subscribe({
       next: (data) => {
-        this.ListaHeroes = data.results || [];
+        this.ListaHeroes = data.results || [];  //Se guarda esa busqueda en ListaHeroes (tb usamos esta variable apra guardar el getAll)
         this.nombreBusqueda = nombre;
       },
       error: (err) => {

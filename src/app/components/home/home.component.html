@@ -2,8 +2,8 @@
     <div class="row row-cols-1 row-cols-md-4 g-4">
 
         <div *ngFor="let hero of ListaHeroes">
-            <app-card [hero] = hero (heroSelected)="onHeroSelected($event)"></app-card>
-        </div>
+            <app-card [hero] = hero (heroSelected)="onHeroSelected($event)"></app-card> 
+        </div><!-- captura el evento emitido (heroSelected) desde cada card con la sintaxis de event binding ((evento)="acción()"): -->
 
     </div>    
 </div>
