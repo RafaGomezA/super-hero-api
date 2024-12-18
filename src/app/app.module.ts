@@ -13,6 +13,7 @@ import { ButtonHeaderComponent } from './components/button-header/button-header.
 import { ButtonDetailComponent } from './components/button-detail/button-detail.component';
 import { DetailHeroComponent } from './components/detail-hero/detail-hero.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { FiltroComponent } from './components/filtro/filtro.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     ButtonDetailComponent,
     DetailHeroComponent,
     BuscadorComponent,
+    FiltroComponent,
     
   ],
   imports: [

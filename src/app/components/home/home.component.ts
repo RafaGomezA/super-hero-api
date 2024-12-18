@@ -12,8 +12,7 @@ import { RestService } from 'src/app/services/rest.service';
 export class HomeComponent implements OnInit {
 
   public ListaHeroes: ISuperhero[] = []; // guardo los heroes
-
-  public nombreBusqueda: string = ""; // Término de búsqueda actual
+  private listaOriginal: ISuperhero[] = []; //lista creada para restaurar la list del cargarHeroes() del OnInit si no hay filtros de busqueda
 
   constructor(private restService: RestService, private router: Router, private route: ActivatedRoute) { }
 
@@ -21,10 +20,16 @@ export class HomeComponent implements OnInit {
     this.cargarHeroes();
 
     // Captura el parámetro 'search' y realiza la búsqueda (desde buscador component)
+    // Captura el parámetro 'genre' y realiza el filtro (desde filtro component)
     this.route.queryParams.subscribe(params => {
       const nombre = params['search']; // Obtiene el valor del parámetro 'search'
+      const genero = params['genre']; // Filtro por género. esto sera "" o Male o Female que son los values del option de filtroComponent.html
       if (nombre) {
-        this.buscarHeroes(nombre);
+        this.buscarHeroes(nombre); // Aplicar búsqueda
+      } else if (genero) {
+        this.filtrarPorGenero(genero); // Aplicar filtro
+      } else {
+        this.ListaHeroes = [...this.listaOriginal]; // Restaurar lista completa si no hay filtros ni búsqueda
       }
     });
   }
@@ -44,6 +49,9 @@ export class HomeComponent implements OnInit {
       this.ListaHeroes = resultados;
       console.log(this.ListaHeroes)
 
+    // Guardar la lista completa en listaOriginal (para el filtro). Crea una nueva copia independiente
+    this.listaOriginal = [...this.ListaHeroes];
+
     // Ordenar por ID (convertir a número para asegurar orden correcto porque las respuestas no necesariamente llegan en el mismo orden)
     this.ListaHeroes.sort((a, b) => Number(a.id) - Number(b.id));
     });
@@ -56,18 +64,25 @@ export class HomeComponent implements OnInit {
   }
 
 
-  //busqueda del heroe con el parametro que viene en params de buscadorComponent y que guardamos en "nombre" en el OnInit
+  //BUSQUEDA del heroe con el parametro que viene en params de buscadorComponent y que guardamos en "nombre" en el OnInit
   private buscarHeroes(nombre: string): void {
     this.restService.searchByName(nombre).subscribe({
       next: (data) => {
         this.ListaHeroes = data.results || [];  //Se guarda esa busqueda en ListaHeroes (tb usamos esta variable apra guardar el getAll)
-        this.nombreBusqueda = nombre;
       },
       error: (err) => {
         console.error('Error en la búsqueda:', err);
         this.ListaHeroes = [];
       }
     });
+  }
 
+  //FILTRO
+  public filtrarPorGenero(genero: string): void { // Filtro por género. esto sera "" o Male o Female que son los values del option de filtroComponent.html
+    this.ListaHeroes = this.listaOriginal.filter(
+      (hero: ISuperhero) =>
+        hero.appearance.gender &&                                       // Verifica que la propiedad "gender" exista y no sea null/undefined
+        hero.appearance.gender.toLowerCase() === genero.toLowerCase()   // Compara el género del héroe de la lista con el argumento "genero" que se pasa por parametro
+    );
   }
 }

@@ -1,0 +1,12 @@
+<div class="filter-container">
+    <label for="genderSelect" class="form-label">Filtrar por género:</label>
+    <select
+      id="genderSelect"
+      class="form-select"
+      (change)="filtrarPorGenero($event)"
+    >
+      <option value="">Todos</option>
+      <option value="Male">Hombres</option>
+      <option value="Female">Mujeres</option>
+    </select>
+  </div>
