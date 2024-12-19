@@ -23,11 +23,11 @@ export class HomeComponent implements OnInit {
     // Captura el parámetro 'genre' y realiza el filtro (desde filtro component)
     this.route.queryParams.subscribe(params => {
       const nombre = params['search']; // Obtiene el valor del parámetro 'search'
-      const genero = params['genre']; // Filtro por género. esto sera "" o Male o Female que son los values del option de filtroComponent.html
+      const genero = params['genre']; // Filtro por género. esto sera undefined o Male o Female que son los values del option de filtroComponent.html
       if (nombre) {
         this.buscarHeroes(nombre); // Aplicar búsqueda
       } else if (genero) {
-        this.filtrarPorGenero(genero); // Aplicar filtro
+        this.filtrarPorGenero(genero); // Aplicar filtro. IMPORTANTE: Si es undefined porque he seleccionado "Todos" en el html, no entra aqui a ejecutar el método
       } else {
         this.ListaHeroes = [...this.listaOriginal]; // Restaurar lista completa si no hay filtros ni búsqueda
       }
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
   }
 
   //FILTRO
-  public filtrarPorGenero(genero: string): void { // Filtro por género. esto sera "" o Male o Female que son los values del option de filtroComponent.html
+  public filtrarPorGenero(genero: string): void { // Filtro por género. esto será Male o Female que son los values del option de filtroComponent.html. SI se ha seleccionado "Todos", no ll3ga a este metodo. Mirar en el this.route.queryParams.subscribe del OnInit
     this.ListaHeroes = this.listaOriginal.filter(
       (hero: ISuperhero) =>
         hero.appearance.gender &&                                       // Verifica que la propiedad "gender" exista y no sea null/undefined

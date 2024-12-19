@@ -18,12 +18,12 @@ export class FiltroComponent implements OnInit {
     const genero = (event.target as HTMLSelectElement).value; // Obtener el valor del <select>
   
     if (genero === "") {
-      // Si seleccionas "Todos", eliminar el parámetro `genre`
+      // Si seleccionas "Todos", eliminar el parámetro `genre` de la url para que sea http://localhost:4200/
       this.router.navigate([""], {
         queryParams: {}, // Limpiar los parámetros
       });
     } else {
-      // Si seleccionas un género específico, actualizar el parámetro `genre`
+      // Si seleccionas un género específico, actualizar el parámetro `genre`. Será http://localhost:4200/?genre=...
       this.router.navigate([""], {
         queryParams: { genre: genero },
       });
